@@ -36,7 +36,7 @@ if pluginConfig.enabled then
         ["iconcolor"] = 0, -- Blip Color, Used to show job type
         ["name"] = "NOT SET",
         ["Unit Number"] = "0",
-        ["Status"] = "UNAVALIABLE",
+        ["Status"] = "UNAVAILABLE",
         ["Call Assignment"] = "UNASSIGNED"
     }
 
@@ -113,8 +113,8 @@ if pluginConfig.enabled then
             elseif Config.serverType == 'esx' then
                 playerBlipData = esxPlayerBlipData
                 -- waits to see if framework data is initialized before moving on
-                while PlayerData == {} do
-                    Citizen.SetTimeout(10)
+                while not PlayerData or not next(PlayerData) do
+                    Citizen.Wait(1000)
                 end
             end
             -- In framwork integration mode, check if player is a tracked job type as configured in config.json
